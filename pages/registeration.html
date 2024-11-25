@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management - Sign Up</title>
+</head>
+<body>
+    <header>
+        <h1>Task Management</h1>
+    </header>
+    <main>
+        <div class="form-container">
+            <h2>Create Your Account</h2>
+            <form id="signup-form">
+                <label for="login-name">
+                    <span>*</span> Login Name:
+                </label><br>
+                <input type="text" id="login-name" required><br><br>
+                
+                <label for="password">
+                    <span>*</span> Enter Password:
+                </label><br>
+                <input type="password" id="password" required><br><br>
+                
+                <label for="confirm-password">
+                    <span>*</span> Confirm Password:
+                </label><br>
+                <input type="password" id="confirm-password" required><br><br>
+                
+                <label for="email">
+                    <span>*</span> Email Address:
+                </label><br>
+                <input type="email" id="email" required><br><br>
+                
+                <label for="first-name">First Name:</label><br>
+                <input type="text" id="first-name"><br><br>
+                
+                <label for="last-name">Last Name:</label><br>
+                <input type="text" id="last-name"><br><br>
+                
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    
+</body>
+</html>
+
+document.getElementById("signup-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // 阻止表单默认提交行为
+    // 模拟验证或处理逻辑
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    if (username && password) { // 简单验证
+      alert("Registration successful! Redirecting to login page...");
+      window.location.href = "index.html"; // 跳转到登录页面
+    } else {
+      alert("Please fill in all required fields.");
+    }
+  });
