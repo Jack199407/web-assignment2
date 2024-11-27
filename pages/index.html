@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/general.css" rel="stylesheet">
+    <link href="../css/index.css" rel="stylesheet">
     <title>Task Management - Login</title>
 </head>
 <body>
@@ -13,16 +15,25 @@
         <div class="form-container">
             <h2>Welcome!</h2>
             <form>
-                <label for="login-name">Login Name:</label><br>
-                <input type="text" id="login-name" required><br><br>
+                <div class="form-row">
+                    <label for="login-name">Login Name:</label>
+                    <input type="text" id="login-name" required>
+                </div>
 
-                <label for="password">Password:</label><br>
-                <input type="password" id="password" required><br><br>
-
-                <button type="submit">Sign In</button>
-                <button type="button" onclick="window.location.href='registeration.html'">Sign Up</button>
+                <div class="form-row">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                
+                <div class="button-row">
+                    <button type="submit">Sign In</button>
+                    <button type="button" onclick="window.location.href='registeration.html'">Sign Up</button>
+                </div>
             </form>
         </div>
     </main>
+    <footer>
+        <p>&copy; All rights reserved.</p>
+    </footer>
 </body>
 </html>

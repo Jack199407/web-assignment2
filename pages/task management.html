@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Management - Tasks</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="../css/general.css" rel="stylesheet">
+    <link href="../css/task-management.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -11,9 +14,31 @@
     </header>
     <main>
         <div class="tasks-container">
-            <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Search tasks (e.g., priority:high)" />
-                <i class="fas fa-search search-icon"></i>
+            <div class="filter-container">
+                <div class="filter-group-wrapper">
+                    <h3>Priority</h3>
+                    <div id="priority-filter" class="filter-group">
+                        <label><input type="checkbox" value="high"> High</label>
+                        <label><input type="checkbox" value="middle"> Middle</label>
+                        <label><input type="checkbox" value="low"> Low</label>
+                    </div>
+                </div>
+            
+                <div class="filter-group-wrapper">
+                    <h3>Status</h3>
+                    <div id="status-filter" class="filter-group">
+                        <label><input type="checkbox" value="to-do"> To Do</label>
+                        <label><input type="checkbox" value="in-progress"> In Progress</label>
+                        <label><input type="checkbox" value="completed"> Completed</label>
+                        <label><input type="checkbox" value="paused"> Paused</label>
+                        <label><input type="checkbox" value="cancelled"> Cancelled</label>
+                    </div>
+                </div>
+
+                <div class="date-search-container">
+                    <i class="fas fa-search search-icon" onclick="filterAndSearchTasks()"></i>
+                    <input type="date" id="due-date-filter" />
+                </div>
             </div>
 
             <table>
@@ -31,15 +56,52 @@
                 </tbody>
             </table>
         </div>
-        
-        <button onclick="openTaskWindow()">New Task</button>
-        <button onclick="openUpdateWindow()" disabled>Update</button>
-
+        <div class="button-container">
+            <button onclick="openTaskWindow()">New Task</button>
+            <button onclick="openUpdateWindow()" disabled>Update</button>
+        </div>
         
 
     </main>
 
-    <div id="task-modal" class="modal">
+    <div id="new-task-modal" class="modal">
+        <div class="modal-content">
+            <!-- Close button -->
+            <button class="close-button" onclick="closeModal()">×</button>
+            
+            <h3 id="modal-title">New Task</h3>
+            <form id="task-form">
+                <label for="task-name">Task Name:</label><br>
+                <input type="text" id="task-name" required><br><br>
+        
+                <label for="due-date">Due Date:</label><br>
+                <input type="date" id="due-date" required><br><br>
+        
+                <label for="priority">Priority:</label><br>
+                <select id="priority" required>
+                    <option value="high">High</option>
+                    <option value="middle">Middle</option>
+                    <option value="low">Low</option>
+                </select><br><br>
+        
+                <label for="status">Status:</label><br>
+                <select id="status" required>
+                    <option value="to-do">To Do</option>
+                    <option value="in-progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="paused">Paused</option>
+                    <option value="cancelled">cancelled</option>
+                </select><br><br>
+        
+                <div class="modal-button-container">
+                    <button type="button" class="btn-add" id="add-button" onclick="addTask()">Add</button>
+                    <button type="reset" class="btn-reset">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="task-update-modal" class="modal">
         <div class="modal-content">
             <!-- Close button -->
             <button class="close-button" onclick="closeModal()">×</button>
@@ -68,12 +130,18 @@
                     <option value="cancelled">cancelled</option>
                 </select><br><br>
         
-                <button type="submit" id="submit-button" class="btn-update">Save</button>
-                <button type="button" class="btn-delete" id="delete-button" onclick="deleteTask()">Delete</button>
-                <button type="reset" class="btn-reset">Reset</button>
+                <div class="modal-button-container">
+                    <button type="submit" id="submit-button" class="btn-update">Save</button>
+                    <button type="button" class="btn-delete" id="delete-button" onclick="deleteTask()">Delete</button>
+                    <button type="reset" class="btn-reset">Reset</button>
+                </div>
             </form>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; All rights reserved.</p>
+    </footer>
 </body>
 </html>
 
