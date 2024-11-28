@@ -84,6 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Translate priority and taskStatus directly into text
+        $priorityMapping = [0 => 'High', 1 => 'Middle', 2 => 'Low'];
+        $statusMapping = [0 => 'ToDo', 1 => 'InProgress', 2 => 'Completed', 3 => 'Paused', 4 => 'Cancelled'];
+
+        foreach ($tasks as &$task) {
+            // Directly replace numerical values with text
+            $task['priority'] = $priorityMapping[$task['priority']] ?? 'Unknown';
+            $task['taskStatus'] = $statusMapping[$task['taskStatus']] ?? 'Unknown';
+        }
+
         // Update response for success
         $response["code"] = 0;
         $response["message"] = "Tasks retrieved successfully.";
