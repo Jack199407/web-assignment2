@@ -103,7 +103,7 @@ document
       return; // 校验不通过，直接返回，不调用后端
     }
 
-    const apiUrl = "http://127.0.0.1:8080/web/assignment2/registration";
+    const apiUrl = "http://localhost/web-assignment2/server/userManagement/create_user.php";
 
     fetch(apiUrl, {
       method: "POST",
@@ -122,7 +122,7 @@ document
       .then((data) => {
         if (data.code === 0) {
           alert("Registration successful!");
-          window.location.href = "/pages/index.html";
+          window.location.href = "/web-assignment2/pages/index.php";
         } else {
           alert(`${data.msg}`);
         }

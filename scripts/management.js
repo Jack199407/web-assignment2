@@ -22,7 +22,7 @@ const currentUser = getCookie("userInfo");
 // 获取表格
 const dynamicTable = document.getElementById("task-list");
 async function filterAndSearchTasks() {
-  const apiUrl = "http://127.0.0.1:8080/web/assignment2/task/display";
+  const apiUrl = "http://localhost/web-assignment2/server/taskManagement/request_task.php";
   const body = {
     userId: currentUser.userId,
     priority: selectedPriorityValues,
@@ -105,7 +105,7 @@ function addTask() {
     taskStatus: taskStatus,
     userId: userId,
   };
-  const apiUrl = "http://127.0.0.1:8080/web/assignment2/addTask";
+  const apiUrl = "http://localhost/web-assignment2/server/taskManagement/create_task.php";
 
   fetch(apiUrl, {
     method: "POST",

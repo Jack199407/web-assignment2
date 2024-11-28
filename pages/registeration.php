@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management - Sign Up</title>
+    <link href="../css/general.css" rel="stylesheet" />
+    <link href="../css/registeration.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1>Task Management</h1>
+    </header>
+    <main>
+      <div class="form-container">
+        <h2>Create Your Account</h2>
+        <form id="signup-form" onsubmit="return validate()">
+          <div class="textfield">
+            <label for="login-name"> <span>*</span> Login Name: </label>
+            <input type="text" id="login-name" required />
+            <small id="nameError" class="error"></small>
+          </div>
+          <div class="textfield">
+            <label for="password"> <span>*</span> Enter Password: </label>
+            <input type="password" id="password" required />
+            <small id="passwordError" class="error"></small>
+          </div>
+          <div class="textfield">
+            <label for="confirm-password">
+              <span>*</span> Confirm Password:
+            </label>
+            <input type="password" id="confirm-password" required />
+            <small id="confirmError" class="error"></small>
+          </div>
+          <div class="textfield">
+            <label for="email"> <span>*</span> Email Address: </label>
+            <input type="email" id="email" placeholder="abc@xyz.com" required />
+            <small id="emailError" class="error"></small>
+          </div>
+          <label for="first-name">First Name:</label>
+          <input type="text" id="first-name" />
+
+          <label for="last-name">Last Name:</label>
+          <input type="text" id="last-name" />
+
+          <div class="button-container">
+            <button type="reset">Reset</button>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer>
+      <p>&copy; All rights reserved.</p>
+    </footer>
+    <script src="../scripts/registeration.js"></script>
+  </body>
+</html>
