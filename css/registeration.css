@@ -1,123 +1,132 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 /* 表单容器样式 */
 .form-container {
-    max-width: 400px;
-    margin: 50px auto;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  max-width: 400px;
+  margin: 50px auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .form-container h2 {
-    font-family: 'Poppins', cursive;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #8E806A;
+  font-family: "Poppins", cursive;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #8e806a;
 }
 
 /* 表单样式 */
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 form label {
-    font-size: 1rem;
-    color: #4E4E4E;
-    margin-bottom: 5px;
+  font-size: 1rem;
+  color: #4e4e4e;
+  margin-bottom: 5px;
 }
 
 label span {
-    color: #D4A373; 
-    font-weight: bold; 
-    font-size: 1.1em;
+  color: #d4a373;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 form input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-family: 'Cormorant Garamond', serif;
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: "Cormorant Garamond", serif;
 }
 
 form input:focus {
-    border-color: #8E806A;
-    outline: none;
-    box-shadow: 0 0 4px rgba(142, 128, 106, 0.5);
+  border-color: #8e806a;
+  outline: none;
+  box-shadow: 0 0 4px rgba(142, 128, 106, 0.5);
 }
 
 /* Button Style */
 
 .button-container {
-    display: flex;
-    justify-content: center; /* 水平方向居中 */
-    gap: 10px; /* 按钮之间的间距 */
-    margin-top: 10px; /* 上方间距 */
+  display: flex;
+  justify-content: center; /* 水平方向居中 */
+  gap: 10px; /* 按钮之间的间距 */
+  margin-top: 10px; /* 上方间距 */
 }
 
 /* 按钮样式 */
 form button {
-    width: 150px; /* 调整宽度，保证按钮一致 */
-    padding: 10px;
-    font-size: 1rem;
-    color: white;
-    background-color: #8E806A;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-    font-family: 'Cormorant Garamond', serif;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  width: 150px; /* 调整宽度，保证按钮一致 */
+  padding: 10px;
+  font-size: 1rem;
+  color: white;
+  background-color: #8e806a;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  font-family: "Cormorant Garamond", serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 form button[type="reset"] {
-    background-color: #D9534F;
+  background-color: #d9534f;
 }
 
 form button:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 form button[type="reset"]:hover {
-    background-color: #C9302C;
+  background-color: #c9302c;
 }
 
 form button[type="submit"]:hover {
-    background-color: #6F634A;
+  background-color: #6f634a;
 }
 
 /* Responsive Design */
 @media screen and (min-width: 601px) and (max-width: 1024px) {
-
-    .form-container {
-        max-width: 500px;
-    }
-
+  .form-container {
+    max-width: 500px;
+  }
 }
 
 @media screen and (max-width: 600px) {
+  .form-container {
+    max-width: 90%;
+    padding: 15px;
+  }
 
-    .form-container {
-        max-width: 90%;
-        padding: 15px;
-    }
+  form input {
+    width: calc(100% - 10px);
+    font-size: 0.9rem;
+  }
 
-    form input {
-        width: calc(100% - 10px);
-        font-size: 0.9rem;
-    }
+  form button {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+}
 
-    form button {
-        width: 100%;
-        font-size: 0.9rem;
-    }
-
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: none;
+}
+.active {
+  display: block;
+}
+.error-field {
+  border-color: red;
 }

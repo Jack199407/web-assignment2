@@ -1,256 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task Management - Tasks</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="../css/general.css" rel="stylesheet">
-    <link href="../css/task-management.css" rel="stylesheet">
-</head>
-<body>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="../css/general.css" rel="stylesheet" />
+    <link href="../css/task-management.css" rel="stylesheet" />
+  </head>
+  <body>
     <header>
-        <h1>Task Management</h1>
+      <h1>Task Management</h1>
     </header>
     <main>
-        <div class="tasks-container">
-            <div class="filter-container">
-                <div class="filter-group-wrapper">
-                    <h3>Priority</h3>
-                    <div id="priority-filter" class="filter-group">
-                        <label><input type="checkbox" value="high"> High</label>
-                        <label><input type="checkbox" value="middle"> Middle</label>
-                        <label><input type="checkbox" value="low"> Low</label>
-                    </div>
-                </div>
-            
-                <div class="filter-group-wrapper">
-                    <h3>Status</h3>
-                    <div id="status-filter" class="filter-group">
-                        <label><input type="checkbox" value="to-do"> To Do</label>
-                        <label><input type="checkbox" value="in-progress"> In Progress</label>
-                        <label><input type="checkbox" value="completed"> Completed</label>
-                        <label><input type="checkbox" value="paused"> Paused</label>
-                        <label><input type="checkbox" value="cancelled"> Cancelled</label>
-                    </div>
-                </div>
-
-                <div class="date-search-container">
-                    <i class="fas fa-search search-icon" onclick="filterAndSearchTasks()"></i>
-                    <input type="date" id="due-date-filter" />
-                </div>
+      <div class="tasks-container">
+        <div class="filter-container">
+          <div class="filter-group-wrapper">
+            <h3>Priority</h3>
+            <div id="priority-filter" class="filter-group">
+              <label
+                ><input type="checkbox" name="priority" value="0" /> High</label
+              >
+              <label
+                ><input type="checkbox" name="priority" value="1" />
+                Middle</label
+              >
+              <label
+                ><input type="checkbox" name="priority" value="2" /> Low</label
+              >
             </div>
+          </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th>Task Name</th>
-                        <th>Due Date</th>
-                        <th>Priority</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="task-list">
-                    <!-- 动态生成内容将插入到这里 -->
-                </tbody>
-            </table>
-        </div>
-        <div class="button-container">
-            <button onclick="openTaskWindow()">New Task</button>
-            <button onclick="openUpdateWindow()" disabled>Update</button>
-        </div>
-        
+          <div class="filter-group-wrapper">
+            <h3>Status</h3>
+            <div id="status-filter" class="filter-group">
+              <label
+                ><input type="checkbox" name="status" value="0" /> To Do</label
+              >
+              <label
+                ><input type="checkbox" name="status" value="1" /> In
+                Progress</label
+              >
+              <label
+                ><input type="checkbox" name="status" value="2" />
+                Completed</label
+              >
+              <label
+                ><input type="checkbox" name="status" value="3" /> Paused</label
+              >
+              <label
+                ><input type="checkbox" name="status" value="4" />
+                Cancelled</label
+              >
+            </div>
+          </div>
 
+          <div class="date-search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="date" id="due-date-filter" />
+            <button id="btn-search" onclick="filterAndSearchTasks()">
+              Search
+            </button>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Select</th>
+              <th>Task Name</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="task-list">
+            <!-- 动态生成内容将插入到这里 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="button-container">
+        <button onclick="openTaskWindow()">New Task</button>
+        <button onclick="openUpdateWindow()" disabled>Update</button>
+      </div>
     </main>
 
     <div id="new-task-modal" class="modal">
-        <div class="modal-content">
-            <!-- Close button -->
-            <button class="close-button" onclick="closeModal()">×</button>
-            
-            <h3 id="modal-title">New Task</h3>
-            <form id="task-form">
-                <label for="task-name">Task Name:</label><br>
-                <input type="text" id="task-name" required><br><br>
-        
-                <label for="due-date">Due Date:</label><br>
-                <input type="date" id="due-date" required><br><br>
-        
-                <label for="priority">Priority:</label><br>
-                <select id="priority" required>
-                    <option value="high">High</option>
-                    <option value="middle">Middle</option>
-                    <option value="low">Low</option>
-                </select><br><br>
-        
-                <label for="status">Status:</label><br>
-                <select id="status" required>
-                    <option value="to-do">To Do</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="paused">Paused</option>
-                    <option value="cancelled">cancelled</option>
-                </select><br><br>
-        
-                <div class="modal-button-container">
-                    <button type="button" class="btn-add" id="add-button" onclick="addTask()">Add</button>
-                    <button type="reset" class="btn-reset">Reset</button>
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <!-- Close button -->
+        <button class="close-button" onclick="closeModal()">×</button>
+
+        <h3 id="new-modal-title">New Task</h3>
+        <form id="new-task-form">
+          <label for="task-name">Task Name:</label><br />
+          <input type="text" id="new-task-name" required /><br /><br />
+
+          <label for="due-date">Due Date:</label><br />
+          <input type="date" id="new-due-date" required /><br /><br />
+
+          <label for="priority">Priority:</label><br />
+          <select id="new-priority" required>
+            <option value="0">High</option>
+            <option value="1">Middle</option>
+            <option value="2">Low</option></select
+          ><br /><br />
+
+          <label for="status">Status:</label><br />
+          <select id="new-status" required>
+            <option value="0">To Do</option>
+            <option value="1">In Progress</option>
+            <option value="2">Completed</option>
+            <option value="3">Paused</option>
+            <option value="4">cancelled</option></select
+          ><br /><br />
+
+          <div class="modal-button-container">
+            <button
+              type="button"
+              class="btn-add"
+              id="add-button"
+              onclick="addTask()"
+            >
+              Add
+            </button>
+            <button type="reset" class="btn-reset">Reset</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <div id="task-update-modal" class="modal">
-        <div class="modal-content">
-            <!-- Close button -->
-            <button class="close-button" onclick="closeModal()">×</button>
-            
-            <h3 id="modal-title">Task Details</h3>
-            <form id="task-form">
-                <label for="task-name">Task Name:</label><br>
-                <input type="text" id="task-name" required><br><br>
-        
-                <label for="due-date">Due Date:</label><br>
-                <input type="date" id="due-date" required><br><br>
-        
-                <label for="priority">Priority:</label><br>
-                <select id="priority" required>
-                    <option value="high">High</option>
-                    <option value="middle">Middle</option>
-                    <option value="low">Low</option>
-                </select><br><br>
-        
-                <label for="status">Status:</label><br>
-                <select id="status" required>
-                    <option value="to-do">To Do</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                    <option value="paused">Paused</option>
-                    <option value="cancelled">cancelled</option>
-                </select><br><br>
-        
-                <div class="modal-button-container">
-                    <button type="submit" id="submit-button" class="btn-update">Save</button>
-                    <button type="button" class="btn-delete" id="delete-button" onclick="deleteTask()">Delete</button>
-                    <button type="reset" class="btn-reset">Reset</button>
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <!-- Close button -->
+        <button class="close-button" onclick="closeModal()">×</button>
+
+        <h3 id="modal-title">Task Details</h3>
+        <form id="task-form">
+          <label for="task-name">Task Name:</label><br />
+          <input type="text" id="task-name" required /><br /><br />
+
+          <label for="due-date">Due Date:</label><br />
+          <input type="date" id="due-date" required /><br /><br />
+
+          <label for="priority">Priority:</label><br />
+          <select id="priority" required>
+            <option value="0">High</option>
+            <option value="1">Middle</option>
+            <option value="2">Low</option></select
+          ><br /><br />
+
+          <label for="status">Status:</label><br />
+          <select id="status" required>
+            <option value="0">To Do</option>
+            <option value="1">In Progress</option>
+            <option value="2">Completed</option>
+            <option value="3">Paused</option>
+            <option value="4">cancelled</option></select
+          ><br /><br />
+
+          <div class="modal-button-container">
+            <button type="submit" id="submit-button" class="btn-update">
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn-delete"
+              id="delete-button"
+              onclick="deleteTask()"
+            >
+              Delete
+            </button>
+            <button type="reset" class="btn-reset">Reset</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <footer>
-        <p>&copy; All rights reserved.</p>
+      <p>&copy; All rights reserved.</p>
     </footer>
-</body>
+    <script src="/scripts/cookie.js"></script>
+    <script src="/scripts/management.js"></script>
+  </body>
 </html>
-
-动态展示表格数据
-// 模拟后端返回的数据
-const tasks = [
-  { id: 1, name: "Complete project", dueDate: "2024-12-01", priority: "High", status: "In Progress" },
-  { id: 2, name: "Buy groceries", dueDate: "2024-11-30", priority: "Low", status: "To Do" },
-  { id: 3, name: "Prepare presentation", dueDate: "2024-12-05", priority: "Middle", status: "Completed" }
-];
-
-// 获取任务列表的 tbody
-const taskList = document.getElementById("task-list");
-
-// 动态生成任务行
-tasks.forEach(task => {
-  const row = document.createElement("tr");
-
-  // 复选框列
-  const selectCell = document.createElement("td");
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.name = "select-task";
-  checkbox.value = task.id;
-  selectCell.appendChild(checkbox);
-  row.appendChild(selectCell);
-
-  // 任务名称列
-  const nameCell = document.createElement("td");
-  nameCell.textContent = task.name;
-  row.appendChild(nameCell);
-
-  // 截止日期列
-  const dueDateCell = document.createElement("td");
-  dueDateCell.textContent = task.dueDate;
-  row.appendChild(dueDateCell);
-
-  // 优先级列
-  const priorityCell = document.createElement("td");
-  priorityCell.textContent = task.priority;
-  row.appendChild(priorityCell);
-
-  // 状态列
-  const statusCell = document.createElement("td");
-  statusCell.textContent = task.status;
-  row.appendChild(statusCell);
-
-  // 将行添加到任务列表
-  taskList.appendChild(row);
-});
-
-update验证复选框选中
-// 获取 Update 按钮
-const updateButton = document.getElementById("update-button");
-
-// 添加事件监听器到所有复选框
-document.addEventListener("change", () => {
-  const checkboxes = document.querySelectorAll('input[name="select-task"]:checked');
-  updateButton.disabled = checkboxes.length === 0;
-});
-
-// 初始化时禁用按钮
-updateButton.disabled = true;
-
-function openTaskWindow() {
-    document.getElementById("modal-title").textContent = "Create New Task";
-    document.getElementById("delete-button").style.display = "none"; // 隐藏删除按钮
-    document.getElementById("task-form").reset(); // 清空表单内容
-    document.getElementById("task-modal").style.display = "flex"; // 显示模态窗口
-}
-
-function openUpdateWindow() {
-    document.getElementById("modal-title").textContent = "Update Task";
-    document.getElementById("delete-button").style.display = "inline-block"; // 显示删除按钮
-    // 填充数据逻辑（需要从后端拉取任务数据）
-    document.getElementById("task-name").value = "Existing Task Name";
-    document.getElementById("due-date").value = "2024-12-01";
-    document.getElementById("priority").value = "high";
-    document.getElementById("status").value = "to-do";
-    document.getElementById("task-modal").style.display = "flex"; // 显示模态窗口
-}
-
-function closeModal() {
-    document.getElementById("task-modal").style.display = "none"; // 关闭模态窗口
-}
-
-function filterAndSearchTasks() {
-    const input = document.getElementById("search-bar").value.toLowerCase();
-    const rows = document.querySelectorAll("#task-table tbody tr");
-    const regex = /priority:(\w+)|status:(\w+)/g;
-
-    const filters = {};
-    let match;
-    while ((match = regex.exec(input)) !== null) {
-        filters[match[1] ? 'priority' : 'status'] = match[1] || match[2];
-    }
-
-    const searchKeyword = input.replace(regex, "").trim();
-
-    rows.forEach(row => {
-        const cells = row.querySelectorAll("td");
-        const taskName = cells[0].textContent.toLowerCase();
-        const priority = cells[2].textContent.toLowerCase();
-        const status = cells[3].textContent.toLowerCase();
-
-        const matchesSearch = taskName.includes(searchKeyword);
-        const matchesPriority = !filters.priority || priority === filters.priority;
-        const matchesStatus = !filters.status || status === filters.status;
-
-        row.style.display = matchesSearch && matchesPriority && matchesStatus ? "" : "none";
-    });
-}

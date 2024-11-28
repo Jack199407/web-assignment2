@@ -1,268 +1,275 @@
-
 /* Main Style */
 .tasks-container {
-    max-width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
-
 
 /* 优化过滤器容器样式 */
 .filter-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 /* 每组选项容器 */
 .filter-group-wrapper {
-    display: flex;
-    align-items: center; /* 垂直居中 */
-    gap: 15px; /* 标题和选项间距 */
-    flex-wrap: wrap; /* 如果空间不足，支持换行 */
-    flex-direction: row;
+  display: flex;
+  align-items: center; /* 垂直居中 */
+  gap: 15px; /* 标题和选项间距 */
+  flex-wrap: wrap; /* 如果空间不足，支持换行 */
+  flex-direction: row;
 }
 
 .filter-group {
-    display: flex;
-    gap: 10px; /* 选项间的间距 */
+  display: flex;
+  gap: 10px; /* 选项间的间距 */
 }
 
 /* 单个选项样式 */
 .filter-group label {
-    display: flex;
-    align-items: center; /* 确保 label 和 checkbox 垂直居中 */
-    font-size: 1rem;
-    color: #4E4E4E;
-    cursor: pointer;
-    gap: 5px; /* 增加间距 */
+  display: flex;
+  align-items: center; /* 确保 label 和 checkbox 垂直居中 */
+  font-size: 1rem;
+  color: #4e4e4e;
+  cursor: pointer;
+  gap: 5px; /* 增加间距 */
 }
 
 /* checkbox 样式 */
 .filter-group input[type="checkbox"] {
-    accent-color: #8E806A;
-    cursor: pointer;
+  accent-color: #8e806a;
+  cursor: pointer;
 }
 
 /* 标题样式 */
 .filter-group-wrapper h3 {
-    font-size: 1rem;
-    color: #4E4E4E;
-    margin: 0;
-    font-family: 'Cormorant Garamond', serif;
-    display: inline-block;
+  font-size: 1rem;
+  color: #4e4e4e;
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  display: inline-block;
 }
-
 
 /* 搜索图标和日期对齐 */
 .date-search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .date-search-container i {
-    position: absolute;
-    left: 10px; /* 图标位置 */
-    color: #CCC;
-    cursor: pointer;
-    font-size: 16px;
+  position: absolute;
+  left: 10px; /* 图标位置 */
+  color: #ccc;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .date-search-container input[type="date"] {
-    padding-left: 30px; /* 为图标预留空间 */
-    font-size: 1rem;
-    border: 1px solid #CCC;
-    border-radius: 5px;
-    height: 30px;
-    box-sizing: border-box;
+  padding-left: 30px; /* 为图标预留空间 */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  height: 30px;
+  box-sizing: border-box;
 }
 
 i {
-    position: absolute;
-    left: 250px; /* 图标位置 */
-    color: #CCC;
-    cursor: pointer;
-    font-size: 16px;
+  position: absolute;
+  left: 250px; /* 图标位置 */
+  color: #ccc;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 /* Table Style */
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-table th, table td {
-    border: 1px solid #DDD;
-    padding: 10px;
-    text-align: left;
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
 }
 
 table th {
-    background-color: #8E806A;
-    color: white;
+  background-color: #8e806a;
+  color: white;
 }
 
 table td {
-    background-color: #FFF;
+  background-color: #fff;
 }
 
 /* Button Style */
 button {
-    background-color: #8E806A; /* 主色调 */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-family: 'Cormorant Garamond', serif;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #8e806a; /* 主色调 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Cormorant Garamond", serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #716750; /* hover 效果 */
+  background-color: #716750; /* hover 效果 */
 }
 
 .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
 }
-
 
 /* Modal Style */
 .modal {
-    display: none; 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 248, 240, 0.75);
-    backdrop-filter: blur(5px);
-    justify-content: center; 
-    align-items: center; 
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 248, 240, 0.75);
+  backdrop-filter: blur(5px);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
-
+.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .modal-content {
-    width: 40%; 
-    max-width: 500px; 
-    min-width: 300px; 
-    padding: 20px; 
-    background-color:#f6f3f3eb;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    position: relative; 
-    text-align: left; 
-    box-sizing: border-box; 
+  width: 40%;
+  max-width: 500px;
+  min-width: 300px;
+  padding: 20px;
+  background-color: #f6f3f3eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: left;
+  box-sizing: border-box;
 }
 
 .modal-content button {
-    margin: 10px 5px; 
+  margin: 10px 5px;
 }
 
 .modal-content label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.modal-content input, .modal-content select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #CCC;
-    border-radius: 5px;
-    box-sizing: border-box;
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: whitesmoke;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: whitesmoke;
 }
 
 /* Modal Buttons */
 .modal-button-container {
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    gap: 15px; 
-    margin-top: 20px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-.btn-update, .btn-delete, .btn-reset , .btn-add{
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-right: 10px;
+.btn-update,
+.btn-delete,
+.btn-reset,
+.btn-add {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-.btn-update, .btn-add {
-    background-color: #8E806A;
-    color: white;
-    border: none;
+.btn-update,
+.btn-add {
+  background-color: #8e806a;
+  color: white;
+  border: none;
 }
 
-.btn-update:hover, .btn-add:hover {
-    background-color: #A5937D;
+.btn-update:hover,
+.btn-add:hover {
+  background-color: #a5937d;
 }
 
 .btn-delete {
-    background-color: #D9534F;
-    color: white;
-    border: none;
+  background-color: #d9534f;
+  color: white;
+  border: none;
 }
 
 .btn-delete:hover {
-    background-color: #C9302C;
+  background-color: #c9302c;
 }
 
 .btn-reset {
-    background-color: #5BC0DE;
-    color: white;
-    border: none;
+  background-color: #5bc0de;
+  color: white;
+  border: none;
 }
 
 .btn-reset:hover {
-    background-color: #31B0D5;
+  background-color: #31b0d5;
 }
 
 /* Responsive Design */
 @media (min-width: 601px) and (max-width: 1024px) {
-    .tasks-container {
-        width: 90%;
-    }
+  .tasks-container {
+    width: 90%;
+  }
 
-    .modal-content {
-        width: 80%;
-    }
+  .modal-content {
+    width: 80%;
+  }
 }
 
 @media (max-width: 600px) {
-    .tasks-container {
-        width: 95%;
-    }
+  .tasks-container {
+    width: 95%;
+  }
 
-    .modal-content {
-        width: 80%;
-        padding: 15px;
-    }
+  .modal-content {
+    width: 80%;
+    padding: 15px;
+  }
 }
 
 /* 当需要显示时，通过 JavaScript 添加 show 类 */

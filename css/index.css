@@ -1,130 +1,134 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap");
 
 main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
 }
 
 .form-container {
-    background-color: white;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 500px; /* 默认表单宽度 */
-    max-width: 90%;
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 500px; /* 默认表单宽度 */
+  max-width: 90%;
 }
 
 .form-container h2 {
-    margin-bottom: 20px;
-    font-size: 36px;
+  margin-bottom: 20px;
+  font-size: 36px;
 }
 
 /* 表单样式 */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .form-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
 }
 
 label {
-    width: 120px;
-    text-align: left;
-    font-size: 20px;
+  width: 120px;
+  text-align: left;
+  font-size: 20px;
 }
 
 input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #4E4E4E;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: inherit;
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #4e4e4e;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: inherit;
 }
 
 /* 按钮样式 */
 .button-row {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 button {
-    background-color: #8E806A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    flex: 1; /* 按钮等宽 */
-    margin: 0 5px;
+  background-color: #8e806a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1; /* 按钮等宽 */
+  margin: 0 5px;
 }
 
 button:hover {
-    background-color: #B8A89D;
+  background-color: #b8a89d;
 }
 
 /* 响应式布局 */
 
 /* 平板设备 (601px 至 1024px) */
 @media screen and (min-width: 601px) and (max-width: 1024px) {
-    .form-container {
-        width: 80%; /* 表单宽度占屏幕 80% */
-        padding: 20px; /* 减少表单内边距 */
-    }
+  .form-container {
+    width: 80%; /* 表单宽度占屏幕 80% */
+    padding: 20px; /* 减少表单内边距 */
+  }
 
-    header h1 {
-        font-size: 2rem;
-    }
+  header h1 {
+    font-size: 2rem;
+  }
 
-    label {
-        width: 100px; /* 标签宽度适配平板 */
-    }
+  label {
+    width: 100px; /* 标签宽度适配平板 */
+  }
 }
 
 /* 手机设备 (600px 以下) */
 @media (max-width: 600px) {
-    .form-container {
-        width: 90%; /* 表单宽度占屏幕 90% */
-        padding: 15px; /* 减少表单内边距 */
-    }
+  .form-container {
+    width: 90%; /* 表单宽度占屏幕 90% */
+    padding: 15px; /* 减少表单内边距 */
+  }
 
-    form {
-        gap: 10px; /* 缩小表单项之间的间距 */
-    }
+  form {
+    gap: 10px; /* 缩小表单项之间的间距 */
+  }
 
-    .form-row {
-        flex-direction: column; /* 标签与输入框垂直排列 */
-        align-items: flex-start;
-    }
+  .form-row {
+    flex-direction: column; /* 标签与输入框垂直排列 */
+    align-items: flex-start;
+  }
 
-    label {
-        width: 100%; /* 标签宽度占整行 */
-        margin-bottom: 5px; /* 标签与输入框间隔 */
-        text-align: left;
-    }
+  label {
+    width: 100%; /* 标签宽度占整行 */
+    margin-bottom: 5px; /* 标签与输入框间隔 */
+    text-align: left;
+  }
 
-    input {
-        width: 100%; /* 输入框占满整行 */
-    }
+  input {
+    width: 100%; /* 输入框占满整行 */
+  }
 
-    .button-row {
-        flex-direction: column; /* 按钮垂直排列 */
-        gap: 10px; /* 按钮间距 */
-    }
+  .button-row {
+    flex-direction: column; /* 按钮垂直排列 */
+    gap: 10px; /* 按钮间距 */
+  }
 
-    button {
-        width: 100%; /* 按钮占满整行 */
-        margin: 0;
-    }
+  button {
+    width: 100%; /* 按钮占满整行 */
+    margin: 0;
+  }
+}
+
+.error {
+  color: red;
 }
