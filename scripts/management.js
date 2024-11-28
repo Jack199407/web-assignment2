@@ -1,28 +1,27 @@
 "use strict";
-// 获取优先级复选框的值
-const priorityCheckbox = document.getElementById("priority-filter");
-const selectedPriorities = priorityCheckbox.querySelectorAll(
-  'input[name="priority"]:checked'
-);
-const selectedPriorityValues = Array.from(selectedPriorities).map(
-  (checkbox) => checkbox.value
-);
-// 获取状态复选框的值
-const statusCheckbox = document.getElementById("status-filter");
-const selectedStatus = priorityCheckbox.querySelectorAll(
-  'input[name="status"]:checked'
-);
-const selectedStatusValues = Array.from(selectedStatus).map(
-  (checkbox) => checkbox.value
-);
-// 获取日期
-const selectedDate = document.getElementById("due-date-filter").value;
 // 从cookie中获取当前用户的信息
 const currentUser = getCookie("userInfo");
 // 获取表格
 const dynamicTable = document.getElementById("task-list");
 async function filterAndSearchTasks() {
-  const apiUrl = "http://localhost/web-assignment2/server/taskManagement/request_task.php";
+  // 获取优先级复选框的值
+  const selectedPriorities = document.querySelectorAll(
+    'input[name="priority"]:checked'
+  );
+  const selectedPriorityValues = Array.from(selectedPriorities).map(
+    (checkbox) => checkbox.value
+  );
+  // 获取状态复选框的值
+  const selectedStatus = document.querySelectorAll(
+    'input[name="status"]:checked'
+  );
+  const selectedStatusValues = Array.from(selectedStatus).map(
+    (checkbox) => checkbox.value
+  );
+  // 获取日期
+  const selectedDate = document.getElementById("due-date-filter").value;
+  const apiUrl =
+    "http://localhost/web-assignment2/server/taskManagement/request_task.php";
   const body = {
     userId: currentUser.userId,
     priority: selectedPriorityValues,
@@ -105,7 +104,8 @@ function addTask() {
     taskStatus: taskStatus,
     userId: userId,
   };
-  const apiUrl = "http://localhost/web-assignment2/server/taskManagement/create_task.php";
+  const apiUrl =
+    "http://localhost/web-assignment2/server/taskManagement/create_task.php";
 
   fetch(apiUrl, {
     method: "POST",
