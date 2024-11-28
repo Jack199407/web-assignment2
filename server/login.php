@@ -6,9 +6,12 @@ require_once 'db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Read and decode JSON input
+    $input = json_decode(file_get_contents('php://input'), true);
+
     // Read and validate input
-    $loginName = trim($_POST['loginName'] ?? '');
-    $passwd = trim($_POST['passwd'] ?? '');
+    $loginName = trim($input['loginName'] ?? '');
+    $passwd = trim($input['password'] ?? ''); // Use 'password' to match JSON key
 
     // Initialize the response format
     $response = [
@@ -18,8 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // Basic validation
-    if (empty($loginName) || empty($passwd)) {
-        $response["message"] = "loginName and password are required.";
+    $errors = [];
+    if (empty($loginName)) {
+        $errors[] = "loginName is required.";
+    }
+    if (empty($passwd)) {
+        $errors[] = "password is required.";
+    }
+
+    // If there are validation errors, return them
+    if (!empty($errors)) {
+        $response["message"] = "Validation errors occurred.";
+        $response["data"] = ["errors" => $errors];
         echo json_encode($response);
         exit;
     }

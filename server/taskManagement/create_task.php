@@ -6,11 +6,24 @@ require_once '../db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Decode JSON input
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    // Check if JSON decoding failed
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode([
+            "code" => 1,
+            "message" => "Invalid JSON format.",
+            "data" => false
+        ]);
+        exit;
+    }
+
     // Read and validate input
-    $taskName = trim($_POST['taskName'] ?? '');
-    $priority = intval($_POST['priority'] ?? -1);
-    $dueDate = trim($_POST['dueDate'] ?? '');
-    $userId = intval($_POST['userId'] ?? 0);
+    $taskName = trim($input['taskName'] ?? '');
+    $priority = intval($input['priority'] ?? -1);
+    $dueDate = trim($input['dueDate'] ?? '');
+    $userId = intval($input['userId'] ?? 0);
 
     // Initialize the response format
     $response = [
@@ -43,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // If there are validation errors, return them
     if (!empty($errors)) {
-        $response["message"] = implode(" ", $errors);
+        $response["message"] = "Validation errors occurred.";
+        $response["data"] = ["errors" => $errors];
         echo json_encode($response);
         exit;
     }

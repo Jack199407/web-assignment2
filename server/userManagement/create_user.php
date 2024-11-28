@@ -6,78 +6,89 @@ require_once '../db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Read raw JSON input
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    // Validate JSON decoding
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode([
+            "code" => 1,
+            "message" => "Invalid JSON input.",
+            "data" => null
+        ]);
+        exit;
+    }
+
     // Read and validate input
-    $loginName = trim($_POST['loginName'] ?? '');
-    $passwd = trim($_POST['password'] ?? ''); // 'password' key to match the API input
-    $email = trim($_POST['email'] ?? '');
-    $firstName = trim($_POST['firstName'] ?? '');
-    $lastName = trim($_POST['lastName'] ?? '');
+    $loginName = trim($data['loginName'] ?? '');
+    $passwd = trim($data['password'] ?? ''); // 'password' key to match the API input
+    $email = trim($data['email'] ?? '');
+    $firstName = trim($data['firstName'] ?? '');
+    $lastName = trim($data['lastName'] ?? '');
 
     // Initialize response format
     $response = [
         "code" => 1,
-        "message" => "User creation failed.",
-        "data" => null
+        "message" => "Validation errors occurred.",
+        "data" => null,
+        "errors" => [] // Collect all errors here
     ];
 
     // Validation rules
     if (empty($loginName)) {
-        $response["message"] = 'loginName is required.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'loginName is required.';
     } elseif (strlen($loginName) > 50) {
-        $response["message"] = 'loginName cannot exceed 50 characters.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'loginName cannot exceed 50 characters.';
     }
 
     if (empty($passwd)) {
-        $response["message"] = 'password is required.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'password is required.';
     } elseif (strlen($passwd) > 255) {
-        $response["message"] = 'password cannot exceed 255 characters.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'password cannot exceed 255 characters.';
     }
 
     if (empty($email)) {
-        $response["message"] = 'email is required.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'email is required.';
     } elseif (strlen($email) > 100) {
-        $response["message"] = 'email cannot exceed 100 characters.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'email cannot exceed 100 characters.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $response["message"] = 'Invalid email format.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'Invalid email format.';
     }
 
     if (!empty($firstName) && strlen($firstName) > 50) {
-        $response["message"] = 'firstName cannot exceed 50 characters.';
-        echo json_encode($response);
-        exit;
+        $response["errors"][] = 'firstName cannot exceed 50 characters.';
     }
 
     if (!empty($lastName) && strlen($lastName) > 50) {
-        $response["message"] = 'lastName cannot exceed 50 characters.';
+        $response["errors"][] = 'lastName cannot exceed 50 characters.';
+    }
+
+    // Check if there are validation errors
+    if (!empty($response["errors"])) {
         echo json_encode($response);
         exit;
     }
 
     try {
-        // Check if loginName or email already exists
-        $checkStmt = $db->prepare('SELECT COUNT(*) FROM users WHERE loginName = :loginName OR email = :email');
-        $checkStmt->bindParam(':loginName', $loginName);
-        $checkStmt->bindParam(':email', $email);
-        $checkStmt->execute();
+        // Check if loginName already exists
+        $checkLoginStmt = $db->prepare('SELECT COUNT(*) FROM users WHERE loginName = :loginName');
+        $checkLoginStmt->bindParam(':loginName', $loginName);
+        $checkLoginStmt->execute();
+        if ($checkLoginStmt->fetchColumn() > 0) {
+            $response["errors"][] = 'A user with the same loginName already exists.';
+        }
 
-        $existingCount = $checkStmt->fetchColumn();
+        // Check if email already exists
+        $checkEmailStmt = $db->prepare('SELECT COUNT(*) FROM users WHERE email = :email');
+        $checkEmailStmt->bindParam(':email', $email);
+        $checkEmailStmt->execute();
+        if ($checkEmailStmt->fetchColumn() > 0) {
+            $response["errors"][] = 'A user with the same email already exists.';
+        }
 
-        if ($existingCount > 0) {
-            $response["message"] = 'A user with the same loginName or email already exists.';
+        // Check for any errors after database checks
+        if (!empty($response["errors"])) {
             echo json_encode($response);
             exit;
         }
@@ -99,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Update response for success
         $response["code"] = 0;
         $response["message"] = "User successfully created.";
+        $response["errors"] = null;
         $response["data"] = null;
 
         echo json_encode($response);

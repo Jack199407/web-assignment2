@@ -1,4 +1,4 @@
-<?php
+<?php 
 // request_task.php: Handles retrieving tasks based on filters
 
 // Include database connection
@@ -6,11 +6,24 @@ require_once '../db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Decode JSON input
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    // Check if JSON decoding failed
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode([
+            "code" => 1,
+            "message" => "Invalid JSON format.",
+            "data" => []
+        ]);
+        exit;
+    }
+
     // Read input
-    $userId = intval($_POST['userId'] ?? 0);
-    $priority = isset($_POST['priority']) ? $_POST['priority'] : null; // Array of priorities
-    $dueDate = trim($_POST['dueDate'] ?? '');
-    $taskStatus = isset($_POST['taskStatus']) ? intval($_POST['taskStatus']) : null;
+    $userId = intval($input['userId'] ?? 0);
+    $priority = $input['priority'] ?? null; // Array of priorities
+    $dueDate = trim($input['dueDate'] ?? '');
+    $taskStatus = isset($input['taskStatus']) ? intval($input['taskStatus']) : null;
 
     // Initialize response format
     $response = [
@@ -20,8 +33,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // Validate userId
+    $errors = [];
     if ($userId <= 0) {
-        $response["message"] = "Valid userId is required.";
+        $errors[] = "Valid userId is required.";
+    }
+
+    if (!empty($dueDate) && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $dueDate)) {
+        $errors[] = "dueDate must be in YYYY-MM-DD format.";
+    }
+
+    // If there are validation errors, return them
+    if (!empty($errors)) {
+        $response["message"] = "Validation errors occurred.";
+        $response["data"] = ["errors" => $errors];
         echo json_encode($response);
         exit;
     }
@@ -38,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $params = array_merge($params, $priority);
         }
 
-        if (!empty($dueDate) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $dueDate)) {
+        if (!empty($dueDate)) {
             $sql .= " AND dueDate = :dueDate";
             $params[':dueDate'] = $dueDate;
         }

@@ -6,8 +6,8 @@ require_once '../db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Read input
-    $taskId = intval($_POST['taskId'] ?? 0);
+    // Read and decode raw JSON input
+    $input = json_decode(file_get_contents('php://input'), true);
 
     // Initialize response format
     $response = [
@@ -16,7 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "data" => false
     ];
 
-    // Validate taskId
+    // Validate JSON input and taskId
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        $response["message"] = "Invalid JSON format.";
+        echo json_encode($response);
+        exit;
+    }
+
+    $taskId = intval($input['taskId'] ?? 0);
+
     if ($taskId <= 0) {
         $response["message"] = "Valid taskId is required.";
         echo json_encode($response);

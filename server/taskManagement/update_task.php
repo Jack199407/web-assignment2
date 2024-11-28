@@ -6,12 +6,25 @@ require_once '../db.php';
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Decode JSON input
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    // Check if JSON decoding failed
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        echo json_encode([
+            "code" => 1,
+            "message" => "Invalid JSON format.",
+            "data" => false
+        ]);
+        exit;
+    }
+
     // Read and validate input
-    $taskId = intval($_POST['taskId'] ?? 0);
-    $taskName = trim($_POST['taskName'] ?? '');
-    $priority = intval($_POST['priority'] ?? -1);
-    $dueDate = trim($_POST['dueDate'] ?? '');
-    $taskStatus = intval($_POST['taskStatus'] ?? -1);
+    $taskId = intval($input['taskId'] ?? 0);
+    $taskName = trim($input['taskName'] ?? '');
+    $priority = intval($input['priority'] ?? -1);
+    $dueDate = trim($input['dueDate'] ?? '');
+    $taskStatus = intval($input['taskStatus'] ?? -1);
 
     // Initialize response format
     $response = [
@@ -21,40 +34,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     // Validation rules
+    $errors = [];
     if ($taskId <= 0) {
-        $response["message"] = "Valid taskId is required.";
-        echo json_encode($response);
-        exit;
+        $errors[] = "Valid taskId is required.";
     }
 
     if (empty($taskName)) {
-        $response["message"] = "taskName is required.";
-        echo json_encode($response);
-        exit;
+        $errors[] = "taskName is required.";
     } elseif (strlen($taskName) > 100) {
-        $response["message"] = "taskName cannot exceed 100 characters.";
-        echo json_encode($response);
-        exit;
+        $errors[] = "taskName cannot exceed 100 characters.";
     }
 
     if (!in_array($priority, [0, 1, 2])) {
-        $response["message"] = "priority must be 0 (High), 1 (Middle), or 2 (Low).";
-        echo json_encode($response);
-        exit;
+        $errors[] = "priority must be 0 (High), 1 (Middle), or 2 (Low).";
     }
 
     if (empty($dueDate)) {
-        $response["message"] = "dueDate is required.";
-        echo json_encode($response);
-        exit;
+        $errors[] = "dueDate is required.";
     } elseif (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $dueDate)) {
-        $response["message"] = "dueDate must be in YYYY-MM-DD format.";
-        echo json_encode($response);
-        exit;
+        $errors[] = "dueDate must be in YYYY-MM-DD format.";
     }
 
     if (!in_array($taskStatus, [0, 1, 2, 3, 4])) {
-        $response["message"] = "taskStatus must be 0 (ToDo), 1 (InProgress), 2 (Completed), 3 (Paused), or 4 (Cancelled).";
+        $errors[] = "taskStatus must be 0 (ToDo), 1 (InProgress), 2 (Completed), 3 (Paused), or 4 (Cancelled).";
+    }
+
+    // If there are validation errors, return them
+    if (!empty($errors)) {
+        $response["message"] = "Validation errors occurred.";
+        $response["data"] = ["errors" => $errors];
         echo json_encode($response);
         exit;
     }
