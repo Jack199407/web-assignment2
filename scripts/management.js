@@ -119,7 +119,54 @@ function openTaskWindow() {
 }
 function openUpdateWindow() {
   const updateWindow = document.getElementById("task-update-modal");
+  const checkboxes = document.querySelectorAll(".rowCheckBox");
+  for (let checkbox of checkboxes) {
+    if (checkbox.checked) {
+      const row = checkbox.closest("tr");
+      const taskName = row.cells[2].textContent;
+      const dueDate = row.cells[3].textContent;
+      const priority = row.cells[4].textContent;
+      console.log(priority);
+      const status = row.cells[5].textContent;
+      console.log(status);
+      document.getElementById("task-name").value = taskName;
+      document.getElementById("due-date").value = dueDate;
+      document.getElementById("priority").value = mapPriorityValue(priority);
+      document.getElementById("status").value = mapStatusValue(status);
+    }
+  }
   updateWindow.classList.add("active");
+}
+// 映射优先级的文本到对应的值
+function mapPriorityValue(priorityText) {
+  switch (priorityText.toLowerCase()) {
+    case "high":
+      return "0";
+    case "middle":
+      return "1";
+    case "low":
+      return "2";
+    default:
+      return "";
+  }
+}
+
+// 映射状态的文本到对应的值
+function mapStatusValue(statusText) {
+  switch (statusText.toLowerCase()) {
+    case "to do":
+      return "0";
+    case "in progress":
+      return "1";
+    case "completed":
+      return "2";
+    case "paused":
+      return "3";
+    case "cancelled":
+      return "4";
+    default:
+      return "";
+  }
 }
 function closeModal() {
   const windows = document.querySelectorAll(".modal");
