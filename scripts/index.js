@@ -13,7 +13,7 @@ document
     messageDiv.textContent = "";
 
     // 模拟后端接口地址
-    const apiUrl = "http://localhost/web-assignment2/server/login.php";
+    const apiUrl = "http://localhost/web-assignment2/server/login.html";
 
     try {
       const response = await fetch(apiUrl, {
@@ -28,10 +28,10 @@ document
       if (response.ok && result.code === 0) {
         // 登录成功，跳转页面
         setCookie("userInfo", result.data, 3);
-        window.location.href = "/web-assignment2/pages/task management.php"; // 替换为目标页面
+        window.location.href = "/web-assignment2/pages/task management.html"; // 替换为目标页面
       } else {
         // 登录失败，显示错误信息
-        messageDiv.textContent = result.msg || "Invalid credentials";
+        messageDiv.textContent = result.message || "Invalid credentials";
         messageDiv.classList.add("error");
       }
     } catch (error) {

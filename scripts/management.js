@@ -247,7 +247,7 @@ function deleteTask() {
         // 查询新的数据，刷新页面
         filterAndSearchTasks();
       } else {
-        alert(`${data.msg}`);
+        alert(`${data.message}`);
       }
     });
 }

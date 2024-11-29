@@ -103,7 +103,8 @@ document
       return; // 校验不通过，直接返回，不调用后端
     }
 
-    const apiUrl = "http://localhost/web-assignment2/server/userManagement/create_user.php";
+    const apiUrl =
+      "http://localhost/web-assignment2/server/userManagement/create_user.php";
 
     fetch(apiUrl, {
       method: "POST",
@@ -122,9 +123,9 @@ document
       .then((data) => {
         if (data.code === 0) {
           alert("Registration successful!");
-          window.location.href = "/web-assignment2/pages/index.php";
+          window.location.href = "/web-assignment2/pages/index.html";
         } else {
-          alert(`${data.msg}`);
+          alert(`${data.message}`);
         }
       })
       .catch((error) => {
