@@ -71,6 +71,7 @@
           <thead>
             <tr>
               <th>Select</th>
+              <th>Task ID</th>
               <th>Task Name</th>
               <th>Due Date</th>
               <th>Priority</th>
@@ -83,8 +84,10 @@
         </table>
       </div>
       <div class="button-container">
-        <button onclick="openTaskWindow()">New Task</button>
-        <button onclick="openUpdateWindow()" disabled>Update</button>
+        <button id="add" onclick="openTaskWindow()">New Task</button>
+        <button id="update-button" onclick="openUpdateWindow()" disabled>
+          Update
+        </button>
       </div>
     </main>
 
@@ -162,7 +165,12 @@
           ><br /><br />
 
           <div class="modal-button-container">
-            <button type="submit" id="submit-button" class="btn-update">
+            <button
+              type="submit"
+              id="submit-button"
+              class="btn-update"
+              onclick="updateTask()"
+            >
               Save
             </button>
             <button
@@ -182,7 +190,7 @@
     <footer>
       <p>&copy; All rights reserved.</p>
     </footer>
-    <script src="../scripts/cookie.js"></script>
+    <script src="../scripts//cookie.js"></script>
     <script src="../scripts/management.js"></script>
   </body>
 </html>

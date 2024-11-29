@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $priority = intval($input['priority'] ?? -1);
     $dueDate = trim($input['dueDate'] ?? '');
     $userId = intval($input['userId'] ?? 0);
+    $taskStatus = intval($input['taskStatus'] ?? -1);
 
     // Initialize the response format
     $response = [
@@ -54,6 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Valid userId is required.';
     }
 
+    if (!in_array($taskStatus, [0, 1, 2, 3, 4])) {
+        $errors[] = 'task status must be 0 (To Do), 1 (In Progress), 2 (Completed), 3 (Paused), or 4 (Cancelled).';
+    }
+
     // If there are validation errors, return them
     if (!empty($errors)) {
         $response["message"] = "Validation errors occurred.";
@@ -76,10 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Prepare the SQL statement to insert the task
         $stmt = $db->prepare('INSERT INTO tasks (taskName, priority, dueDate, taskStatus, userId) 
-                              VALUES (:taskName, :priority, :dueDate, 0, :userId)');
+                              VALUES (:taskName, :priority, :dueDate, :taskStatus, :userId)');
         $stmt->bindParam(':taskName', $taskName);
         $stmt->bindParam(':priority', $priority);
         $stmt->bindParam(':dueDate', $dueDate);
+        $stmt->bindParam(':taskStatus', $taskStatus);
         $stmt->bindParam(':userId', $userId);
 
         // Execute the statement
