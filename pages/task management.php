@@ -95,27 +95,27 @@
 
         <h3 id="new-modal-title">New Task</h3>
         <form id="new-task-form">
-          <label for="task-name">Task Name:</label><br />
-          <input type="text" id="new-task-name" required /><br /><br />
+          <label for="task-name">Task Name:</label>
+          <input type="text" id="new-task-name" required />
 
-          <label for="due-date">Due Date:</label><br />
-          <input type="date" id="new-due-date" required /><br /><br />
+          <label for="due-date">Due Date:</label>
+          <input type="date" id="new-due-date" required />
 
-          <label for="priority">Priority:</label><br />
+          <label for="priority">Priority:</label>
           <select id="new-priority" required>
             <option value="0">High</option>
             <option value="1">Middle</option>
             <option value="2">Low</option></select
-          ><br /><br />
+          >
 
-          <label for="status">Status:</label><br />
+          <label for="status">Status:</label>
           <select id="new-status" required>
             <option value="0">To Do</option>
             <option value="1">In Progress</option>
             <option value="2">Completed</option>
             <option value="3">Paused</option>
             <option value="4">cancelled</option></select
-          ><br /><br />
+          >
 
           <div class="modal-button-container">
             <button
@@ -139,27 +139,27 @@
 
         <h3 id="modal-title">Task Details</h3>
         <form id="task-form">
-          <label for="task-name">Task Name:</label><br />
-          <input type="text" id="task-name" required /><br /><br />
+          <label for="task-name">Task Name:</label>
+          <input type="text" id="task-name" required />
 
-          <label for="due-date">Due Date:</label><br />
-          <input type="date" id="due-date" required /><br /><br />
+          <label for="due-date">Due Date:</label>
+          <input type="date" id="due-date" required />
 
-          <label for="priority">Priority:</label><br />
+          <label for="priority">Priority:</label>
           <select id="priority" required>
             <option value="0">High</option>
             <option value="1">Middle</option>
             <option value="2">Low</option></select
-          ><br /><br />
+          >
 
-          <label for="status">Status:</label><br />
+          <label for="status">Status:</label>
           <select id="status" required>
             <option value="0">To Do</option>
             <option value="1">In Progress</option>
             <option value="2">Completed</option>
             <option value="3">Paused</option>
             <option value="4">cancelled</option></select
-          ><br /><br />
+          >
 
           <div class="modal-button-container">
             <button type="submit" id="submit-button" class="btn-update">
