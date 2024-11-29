@@ -1,4 +1,4 @@
-<?php 
+<?php  
 // request_task.php: Handles retrieving tasks based on filters
 
 // Include database connection
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = intval($input['userId'] ?? 0);
     $priority = $input['priority'] ?? null; // Array of priorities
     $dueDate = trim($input['dueDate'] ?? '');
-    $taskStatus = isset($input['taskStatus']) ? intval($input['taskStatus']) : null;
+    $taskStatus = $input['taskStatus'] ?? null; // Array of taskStatus values
 
     // Initialize response format
     $response = [
@@ -55,41 +55,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $sql = 'SELECT taskId, taskName, priority, dueDate, taskStatus, userId FROM tasks WHERE userId = :userId';
         $params = [':userId' => $userId];
 
-        // Optional filters
+        // Optional filters: Priority
         if (!empty($priority) && is_array($priority)) {
-            $priorityPlaceholders = implode(',', array_fill(0, count($priority), '?'));
-            $sql .= " AND priority IN ($priorityPlaceholders)";
-            $params = array_merge($params, $priority);
+            $priorityPlaceholders = [];
+            foreach ($priority as $index => $value) {
+                $paramKey = ":priority_$index";
+                $priorityPlaceholders[] = $paramKey;
+                $params[$paramKey] = $value;
+            }
+            $sql .= " AND priority IN (" . implode(',', $priorityPlaceholders) . ")";
         }
 
+        // Optional filters: Due Date
         if (!empty($dueDate)) {
             $sql .= " AND dueDate = :dueDate";
             $params[':dueDate'] = $dueDate;
         }
 
-        if (!is_null($taskStatus)) {
-            $sql .= " AND taskStatus = :taskStatus";
-            $params[':taskStatus'] = $taskStatus;
+        // Optional filters: Task Status
+        if (!empty($taskStatus) && is_array($taskStatus)) {
+            $taskStatusPlaceholders = [];
+            foreach ($taskStatus as $index => $value) {
+                $paramKey = ":taskStatus_$index";
+                $taskStatusPlaceholders[] = $paramKey;
+                $params[$paramKey] = $value;
+            }
+            $sql .= " AND taskStatus IN (" . implode(',', $taskStatusPlaceholders) . ")";
         }
 
         // Prepare and execute the query
         $stmt = $db->prepare($sql);
-
-        // Bind parameters
-        $index = 1;
         foreach ($params as $key => $value) {
-            $stmt->bindValue(is_int($key) ? $index++ : $key, $value);
+            $stmt->bindValue($key, $value);
         }
 
         $stmt->execute();
         $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Translate priority and taskStatus directly into text
+        // Translate priority and taskStatus to text
         $priorityMapping = [0 => 'High', 1 => 'Middle', 2 => 'Low'];
         $statusMapping = [0 => 'ToDo', 1 => 'InProgress', 2 => 'Completed', 3 => 'Paused', 4 => 'Cancelled'];
 
         foreach ($tasks as &$task) {
-            // Directly replace numerical values with text
             $task['priority'] = $priorityMapping[$task['priority']] ?? 'Unknown';
             $task['taskStatus'] = $statusMapping[$task['taskStatus']] ?? 'Unknown';
         }
