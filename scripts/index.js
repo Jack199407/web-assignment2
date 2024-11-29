@@ -13,7 +13,7 @@ document
     messageDiv.textContent = "";
 
     // 模拟后端接口地址
-    const apiUrl = "http://localhost/web-assignment2/server/login.html";
+    const apiUrl = "http://localhost/web-assignment2/server/login.php";
 
     try {
       const response = await fetch(apiUrl, {
