@@ -1,5 +1,9 @@
 <?php
-// update_task.php: Handles the update of an existing task
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+update_task.php: Handles the update of an existing task
+*/
 
 // Include database connection
 require_once '../db.php'; 

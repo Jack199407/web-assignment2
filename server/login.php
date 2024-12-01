@@ -1,5 +1,9 @@
 <?php
-// login.php: Handles user authentication
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+login.php: Handles user authentication
+*/
 
 // Include database connection
 require_once 'db.php'; 

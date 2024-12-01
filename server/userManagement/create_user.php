@@ -1,5 +1,9 @@
 <?php
-// create_user.php: Handles the creation of new users
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+create_user.php: Handles the creation of new users
+*/
 
 // Include database connection
 require_once '../db.php'; 

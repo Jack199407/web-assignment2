@@ -1,5 +1,9 @@
 <?php
-// create_task.php: Handles the creation of new tasks
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+create_task.php: Handles the creation of new tasks
+*/
 
 // Include database connection
 require_once '../db.php'; 

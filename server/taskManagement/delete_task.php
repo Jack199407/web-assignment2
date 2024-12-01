@@ -1,5 +1,9 @@
 <?php
-// delete_task.php: Handles deleting a task
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+delete_task.php: Handles deleting a task
+*/
 
 // Include database connection
 require_once '../db.php';

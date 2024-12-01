@@ -1,5 +1,9 @@
 <?php
-// db.php: Database connection management
+/*
+Name: Gao Miaomiao 041135845
+Created Date: 2024-11-21
+db.php: Database connection management
+*/
 
 // Database configuration
 $host = 'localhost';       // Database host
