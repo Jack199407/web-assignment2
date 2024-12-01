@@ -83,7 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Prepare the SQL statement to insert the task
+        // Start a transaction
+        $db->beginTransaction();
+
+        // Insert the task
         $stmt = $db->prepare('INSERT INTO tasks (taskName, priority, dueDate, taskStatus, userId) 
                               VALUES (:taskName, :priority, :dueDate, :taskStatus, :userId)');
         $stmt->bindParam(':taskName', $taskName);
@@ -91,9 +94,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':dueDate', $dueDate);
         $stmt->bindParam(':taskStatus', $taskStatus);
         $stmt->bindParam(':userId', $userId);
-
-        // Execute the statement
         $stmt->execute();
+
+        // Get the last inserted task ID
+        $taskId = $db->lastInsertId();
+
+        // Insert a task log
+        $logStmt = $db->prepare('INSERT INTO taskLogs (taskId, operatorUserId, operationType, changeTime, taskName, priority, dueDate, taskStatus) 
+                                 VALUES (:taskId, :operatorUserId, 0, NOW(), :taskName, :priority, :dueDate, :taskStatus)');
+        $logStmt->bindParam(':taskId', $taskId);
+        $logStmt->bindParam(':operatorUserId', $userId);
+        $logStmt->bindParam(':taskName', $taskName);
+        $logStmt->bindParam(':priority', $priority);
+        $logStmt->bindParam(':dueDate', $dueDate);
+        $logStmt->bindParam(':taskStatus', $taskStatus);
+        $logStmt->execute();
+
+        // Commit the transaction
+        $db->commit();
 
         // Update response for success
         $response["code"] = 0;
@@ -102,7 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode($response);
     } catch (PDOException $e) {
-        // Handle database errors
+        // Rollback transaction in case of error
+        $db->rollBack();
         $response["message"] = 'Database error: ' . $e->getMessage();
         echo json_encode($response);
     }

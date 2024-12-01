@@ -73,26 +73,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         // Check if the task exists
-        $checkStmt = $db->prepare('SELECT COUNT(*) FROM tasks WHERE taskId = :taskId');
+        $checkStmt = $db->prepare('SELECT * FROM tasks WHERE taskId = :taskId');
         $checkStmt->bindParam(':taskId', $taskId);
         $checkStmt->execute();
+        $existingTask = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($checkStmt->fetchColumn() == 0) {
+        if (!$existingTask) {
             $response["message"] = "Task with the provided taskId does not exist.";
             echo json_encode($response);
             exit;
         }
 
-        // Update the task
-        $stmt = $db->prepare('UPDATE tasks SET taskName = :taskName, priority = :priority, dueDate = :dueDate, taskStatus = :taskStatus WHERE taskId = :taskId');
-        $stmt->bindParam(':taskName', $taskName);
-        $stmt->bindParam(':priority', $priority);
-        $stmt->bindParam(':dueDate', $dueDate);
-        $stmt->bindParam(':taskStatus', $taskStatus);
-        $stmt->bindParam(':taskId', $taskId);
+        // Start a transaction
+        $db->beginTransaction();
 
-        // Execute the statement
-        $stmt->execute();
+        // Update the task
+        $updateStmt = $db->prepare('UPDATE tasks SET taskName = :taskName, priority = :priority, dueDate = :dueDate, taskStatus = :taskStatus WHERE taskId = :taskId');
+        $updateStmt->bindParam(':taskName', $taskName);
+        $updateStmt->bindParam(':priority', $priority);
+        $updateStmt->bindParam(':dueDate', $dueDate);
+        $updateStmt->bindParam(':taskStatus', $taskStatus);
+        $updateStmt->bindParam(':taskId', $taskId);
+        $updateStmt->execute();
+
+        // Insert a log entry
+        $logStmt = $db->prepare('INSERT INTO taskLogs (taskId, operatorUserId, operationType, changeTime, taskName, priority, dueDate, taskStatus) 
+                                 VALUES (:taskId, :operatorUserId, 1, NOW(), :taskName, :priority, :dueDate, :taskStatus)');
+        $logStmt->bindParam(':taskId', $taskId);
+        $logStmt->bindParam(':operatorUserId', $existingTask['userId']); // Use the existing userId from the task
+        $logStmt->bindParam(':taskName', $taskName);
+        $logStmt->bindParam(':priority', $priority);
+        $logStmt->bindParam(':dueDate', $dueDate);
+        $logStmt->bindParam(':taskStatus', $taskStatus);
+        $logStmt->execute();
+
+        // Commit the transaction
+        $db->commit();
 
         // Update response for success
         $response["code"] = 0;
@@ -101,7 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode($response);
     } catch (PDOException $e) {
-        // Handle database errors
+        // Rollback transaction in case of error
+        $db->rollBack();
         $response["message"] = "Database error: " . $e->getMessage();
         echo json_encode($response);
     }

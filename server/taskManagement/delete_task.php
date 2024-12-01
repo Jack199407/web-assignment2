@@ -36,23 +36,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Check if the task exists
-        $checkStmt = $db->prepare('SELECT COUNT(*) FROM tasks WHERE taskId = :taskId');
+        // Check if the task exists and fetch its details
+        $checkStmt = $db->prepare('SELECT * FROM tasks WHERE taskId = :taskId');
         $checkStmt->bindParam(':taskId', $taskId);
         $checkStmt->execute();
+        $task = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($checkStmt->fetchColumn() == 0) {
+        if (!$task) {
             $response["message"] = "Task with the provided taskId does not exist.";
             echo json_encode($response);
             exit;
         }
 
-        // Delete the task
+        // Start a transaction
+        $db->beginTransaction();
+
+        // Insert a log entry to indicate the task was deleted
+        $logStmt = $db->prepare('INSERT INTO taskLogs (taskId, operatorUserId, operationType, changeTime, taskName, priority, dueDate, taskStatus) 
+                                 VALUES (:taskId, :operatorUserId, 2, NOW(), :taskName, :priority, :dueDate, :taskStatus)');
+        $logStmt->bindParam(':taskId', $taskId);
+        $logStmt->bindParam(':operatorUserId', $task['userId']); // Use the userId from the task
+        $logStmt->bindParam(':taskName', $task['taskName']);
+        $logStmt->bindParam(':priority', $task['priority']);
+        $logStmt->bindParam(':dueDate', $task['dueDate']);
+        $logStmt->bindParam(':taskStatus', $task['taskStatus']);
+        $logStmt->execute();
+
+        // Delete the task from the tasks table
         $deleteStmt = $db->prepare('DELETE FROM tasks WHERE taskId = :taskId');
         $deleteStmt->bindParam(':taskId', $taskId);
-
-        // Execute the statement
         $deleteStmt->execute();
+
+        // Commit the transaction
+        $db->commit();
 
         // Update response for success
         $response["code"] = 0;
@@ -61,7 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo json_encode($response);
     } catch (PDOException $e) {
-        // Handle database errors
+        // Rollback transaction in case of error
+        $db->rollBack();
         $response["message"] = "Database error: " . $e->getMessage();
         echo json_encode($response);
     }
