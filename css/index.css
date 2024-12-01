@@ -1,18 +1,28 @@
+/* CSS Comments
+    Name: Yixuan Chen 041109700
+    File Name: index.css
+    Date Created: 2024-11-21
+    Description: This is a css style for index.html.
+*/
+
+/* Importing Google Fonts for custom typography */
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap");
 
+/* Main content area */
 main {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+/* Form container */
 .form-container {
   background-color: white;
   padding: 30px 40px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 500px; /* 默认表单宽度 */
+  width: 500px; 
   max-width: 90%;
 }
 
@@ -21,7 +31,7 @@ main {
   font-size: 36px;
 }
 
-/* 表单样式 */
+/* Form styles */
 form {
   display: flex;
   flex-direction: column;
@@ -50,7 +60,7 @@ input {
   font-family: inherit;
 }
 
-/* 按钮样式 */
+/* Button styles */
 .button-row {
   display: flex;
   justify-content: space-between;
@@ -65,7 +75,7 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
-  flex: 1; /* 按钮等宽 */
+  flex: 1; 
   margin: 0 5px;
 }
 
@@ -73,13 +83,11 @@ button:hover {
   background-color: #b8a89d;
 }
 
-/* 响应式布局 */
-
-/* 平板设备 (601px 至 1024px) */
+/* Responsive Design */
 @media screen and (min-width: 601px) and (max-width: 1024px) {
   .form-container {
-    width: 80%; /* 表单宽度占屏幕 80% */
-    padding: 20px; /* 减少表单内边距 */
+    width: 80%; 
+    padding: 20px;
   }
 
   header h1 {
@@ -87,43 +95,43 @@ button:hover {
   }
 
   label {
-    width: 100px; /* 标签宽度适配平板 */
+    width: 100px; 
   }
 }
 
-/* 手机设备 (600px 以下) */
+
 @media (max-width: 600px) {
   .form-container {
-    width: 90%; /* 表单宽度占屏幕 90% */
-    padding: 15px; /* 减少表单内边距 */
+    width: 90%; 
+    padding: 15px; 
   }
 
   form {
-    gap: 10px; /* 缩小表单项之间的间距 */
+    gap: 10px; 
   }
 
   .form-row {
-    flex-direction: column; /* 标签与输入框垂直排列 */
+    flex-direction: column; 
     align-items: flex-start;
   }
 
   label {
-    width: 100%; /* 标签宽度占整行 */
-    margin-bottom: 5px; /* 标签与输入框间隔 */
+    width: 100%; 
+    margin-bottom: 5px; 
     text-align: left;
   }
 
   input {
-    width: 100%; /* 输入框占满整行 */
+    width: 100%;
   }
 
   .button-row {
-    flex-direction: column; /* 按钮垂直排列 */
-    gap: 10px; /* 按钮间距 */
+    flex-direction: column; 
+    gap: 10px;
   }
 
   button {
-    width: 100%; /* 按钮占满整行 */
+    width: 100%; 
     margin: 0;
   }
 }

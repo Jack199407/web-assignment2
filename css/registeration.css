@@ -1,9 +1,15 @@
+/* CSS Comments
+    Name: Yixuan Chen 041109700
+    File Name: registeration.css
+    Date Created: 2024-11-21
+    Description: This is a css style for registeration.html.
+*/
+
+/* Importing Google Fonts for typography */
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Dancing+Script:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-
-
-/* 表单容器样式 */
+/* Form Container Styles */
 .form-container {
   max-width: 400px;
   margin: 50px auto;
@@ -22,7 +28,7 @@
   color: #8e806a;
 }
 
-/* 表单样式 */
+/* Form Styles */
 form {
   display: flex;
   flex-direction: column;
@@ -57,17 +63,15 @@ form input:focus {
 }
 
 /* Button Style */
-
 .button-container {
   display: flex;
-  justify-content: center; /* 水平方向居中 */
-  gap: 10px; /* 按钮之间的间距 */
-  margin-top: 10px; /* 上方间距 */
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 10px; 
 }
 
-/* 按钮样式 */
 form button {
-  width: 150px; /* 调整宽度，保证按钮一致 */
+  width: 150px; 
   padding: 10px;
   font-size: 1rem;
   color: white;

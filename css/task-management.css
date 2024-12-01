@@ -1,5 +1,11 @@
-/* Main Style */
+/* CSS Comments
+    Name: Yixuan Chen 041109700
+    File Name: task-management.css
+    Date Created: 2024-11-21
+    Description: This is a css style for "task management.html".
+*/
 
+/* Tasks Container */
 .tasks-container {
   max-width: 80%;
   margin: 20px auto;
@@ -9,7 +15,7 @@
   border-radius: 10px;
 }
 
-/* 优化过滤器容器样式 */
+/* Filter Container */
 .filter-container {
   display: flex;
   flex-direction: column;
@@ -17,37 +23,35 @@
   margin-bottom: 20px;
 }
 
-/* 每组选项容器 */
 .filter-group-wrapper {
   display: flex;
-  align-items: center; /* 垂直居中 */
-  gap: 15px; /* 标题和选项间距 */
-  flex-wrap: wrap; /* 如果空间不足，支持换行 */
+  align-items: center; 
+  gap: 15px; 
+  flex-wrap: wrap; 
   flex-direction: row;
 }
 
 .filter-group {
   display: flex;
-  gap: 10px; /* 选项间的间距 */
+  gap: 10px; 
 }
 
-/* 单个选项样式 */
 .filter-group label {
   display: flex;
-  align-items: center; /* 确保 label 和 checkbox 垂直居中 */
+  align-items: center; 
   font-size: 1rem;
   color: #4e4e4e;
   cursor: pointer;
-  gap: 5px; /* 增加间距 */
+  gap: 5px; 
 }
 
-/* checkbox 样式 */
+/* Custom styles for checkboxes */
 .filter-group input[type="checkbox"] {
   accent-color: #8e806a;
   cursor: pointer;
 }
 
-/* 标题样式 */
+/* Styling for filter group headings */
 .filter-group-wrapper h3 {
   font-size: 1rem;
   color: #4e4e4e;
@@ -56,7 +60,7 @@
   display: inline-block;
 }
 
-/* 搜索图标和日期对齐 */
+/* Date Search Container */
 .date-search-container {
   position: relative;
   display: flex;
@@ -64,29 +68,23 @@
   gap: 10px;
 }
 
-.date-search-container i {
+/* Search Icon */
+i {
   position: absolute;
-  left: 10px; /* 图标位置 */
+  left: 10px; 
   color: #ccc;
   cursor: pointer;
   font-size: 16px;
 }
 
+/* Styling for the date input field */
 .date-search-container input[type="date"] {
-  padding-left: 30px; /* 为图标预留空间 */
+  padding-left: 30px; 
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
   height: 30px;
   box-sizing: border-box;
-}
-
-i {
-  position: absolute;
-  left: 250px; /* 图标位置 */
-  color: #ccc;
-  cursor: pointer;
-  font-size: 16px;
 }
 
 /* Table Style */
@@ -113,7 +111,7 @@ table td {
 
 /* Button Style */
 button {
-  background-color: #8e806a; /* 主色调 */
+  background-color: #8e806a; 
   color: white;
   border: none;
   padding: 10px 20px;
@@ -126,7 +124,7 @@ button {
 }
 
 button:hover {
-  background-color: #716750; /* hover 效果 */
+  background-color: #716750; 
 }
 
 .button-container {
@@ -278,18 +276,3 @@ button:hover {
   }
 }
 
-/* 当需要显示时，通过 JavaScript 添加 show 类 */
-/*.modal.show {
-    display: flex;
-}
-    js:
-    // 显示 Modal
-function showModal() {
-    document.getElementById('modal').classList.add('show');
-}
-
-// 隐藏 Modal 
-function hideModal() {
-    document.getElementById('modal').classList.remove('show');
-}
-    */

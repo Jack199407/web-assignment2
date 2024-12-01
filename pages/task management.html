@@ -1,72 +1,81 @@
+<!--HTML Comments
+    Name: Yixuan Chen 041109700
+    File Name: task management.html
+    Date Created: 2024-11-21
+    Description: The main page of task management, showing the task list.
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Management - Tasks</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link href="../css/general.css" rel="stylesheet" />
-    <link href="../css/task-management.css" rel="stylesheet" />
+    <!-- Links to Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Links to the general CSS file for shared styles -->
+    <link href="../css/general.css" rel="stylesheet">
+    <!-- Links to the specific CSS file for task management styles -->
+    <link href="../css/task-management.css" rel="stylesheet">
   </head>
   <body>
+    <!-- Header section containing the main title -->
     <header>
       <h1>Task Management</h1>
     </header>
     <main>
+      <!-- Main container for the tasks and filters -->
       <div class="tasks-container">
+        <!-- Filter section -->
         <div class="filter-container">
+          <!-- Filter by priority -->
           <div class="filter-group-wrapper">
             <h3>Priority</h3>
             <div id="priority-filter" class="filter-group">
-              <label
-                ><input type="checkbox" name="priority" value="0" /> High</label
-              >
-              <label
-                ><input type="checkbox" name="priority" value="1" />
-                Middle</label
-              >
-              <label
-                ><input type="checkbox" name="priority" value="2" /> Low</label
-              >
+              <label>
+                <input type="checkbox" name="priority" value="0">High
+              </label>
+              <label>
+                <input type="checkbox" name="priority" value="1">Middle
+              </label>
+              <label>
+                <input type="checkbox" name="priority" value="2">Low
+              </label>
             </div>
           </div>
 
+          <!-- Filter by status -->
           <div class="filter-group-wrapper">
             <h3>Status</h3>
             <div id="status-filter" class="filter-group">
-              <label
-                ><input type="checkbox" name="status" value="0" /> To Do</label
-              >
-              <label
-                ><input type="checkbox" name="status" value="1" /> In
-                Progress</label
-              >
-              <label
-                ><input type="checkbox" name="status" value="2" />
-                Completed</label
-              >
-              <label
-                ><input type="checkbox" name="status" value="3" /> Paused</label
-              >
-              <label
-                ><input type="checkbox" name="status" value="4" />
-                Cancelled</label
-              >
+              <label>
+                <input type="checkbox" name="status" value="0">To Do
+              </label>
+              <label>
+                <input type="checkbox" name="status" value="1">In Progress
+              </label>
+              <label>
+                <input type="checkbox" name="status" value="2">Completed
+              </label>
+              <label>
+                <input type="checkbox" name="status" value="3">Paused
+              </label>
+              <label>
+                <input type="checkbox" name="status" value="4">Cancelled
+              </label>
             </div>
           </div>
 
+          <!-- Filter by due date -->
           <div class="date-search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="date" id="due-date-filter" />
+            <input type="date" id="due-date-filter">
             <button id="btn-search" onclick="filterAndSearchTasks()">
               Search
             </button>
           </div>
         </div>
 
+        <!-- Table displaying tasks -->
         <table>
           <thead>
             <tr>
@@ -79,33 +88,35 @@
             </tr>
           </thead>
           <tbody id="task-list">
-            <!-- 动态生成内容将插入到这里 -->
+            <!-- Dynamic task list will be inserted here -->
           </tbody>
         </table>
       </div>
+
+      <!-- Buttons for adding and updating tasks -->
       <div class="button-container">
         <button id="add" onclick="openTaskWindow()">New Task</button>
-        <button id="update-button" onclick="openUpdateWindow()" disabled>
-          Update
-        </button>
+        <button id="update-button" onclick="openUpdateWindow()" disabled>Update</button>
       </div>
     </main>
 
+    <!-- Modal for adding a new task -->
     <div id="new-task-modal" class="modal">
       <div class="modal-content">
         <!-- Close button -->
         <button class="close-button" onclick="closeModal()">×</button>
-
         <h3 id="new-modal-title">New Task</h3>
+        <!-- Form for creating a new task -->
         <form id="new-task-form">
           <label for="task-name">Task Name:</label>
-          <input type="text" id="new-task-name" required />
+          <input type="text" id="new-task-name" required>
 
           <label for="due-date">Due Date:</label>
-          <input type="date" id="new-due-date" required />
+          <input type="date" id="new-due-date" required>
 
           <label for="priority">Priority:</label>
           <select id="new-priority" required>
+            <option value="" disabled selected>Select priority</option>
             <option value="0">High</option>
             <option value="1">Middle</option>
             <option value="2">Low</option>
@@ -113,6 +124,7 @@
 
           <label for="status">Status:</label>
           <select id="new-status" required>
+            <option value="" disabled selected>Select status</option>
             <option value="0">To Do</option>
             <option value="1">In Progress</option>
             <option value="2">Completed</option>
@@ -120,36 +132,33 @@
             <option value="4">cancelled</option>
           </select>
 
+          <!-- Buttons for adding and resetting the form -->
           <div class="modal-button-container">
-            <button
-              type="button"
-              class="btn-add"
-              id="add-button"
-              onclick="addTask()"
-            >
-              Add
-            </button>
+            <button type="button" class="btn-add" id="add-button" onclick="addTask()">Add</button>
             <button type="reset" class="btn-reset">Reset</button>
           </div>
         </form>
       </div>
     </div>
 
+    <!-- Modal for updating an existing task -->
     <div id="task-update-modal" class="modal">
       <div class="modal-content">
         <!-- Close button -->
         <button class="close-button" onclick="closeModal()">×</button>
 
+        <!-- Form for updating a task -->
         <h3 id="modal-title">Task Details</h3>
         <form id="task-form">
           <label for="task-name">Task Name:</label>
-          <input type="text" id="task-name" required />
+          <input type="text" id="task-name" required>
 
           <label for="due-date">Due Date:</label>
-          <input type="date" id="due-date" required />
+          <input type="date" id="due-date" required>
 
           <label for="priority">Priority:</label>
           <select id="priority" required>
+            <option value="" disabled selected>Select priority</option>
             <option value="0">High</option>
             <option value="1">Middle</option>
             <option value="2">Low</option>
@@ -157,6 +166,7 @@
 
           <label for="status">Status:</label>
           <select id="status" required>
+            <option value="" disabled selected>Select status</option>
             <option value="0">To Do</option>
             <option value="1">In Progress</option>
             <option value="2">Completed</option>
@@ -164,32 +174,21 @@
             <option value="4">cancelled</option>
           </select>
 
+          <!-- Buttons for saving, deleting, and resetting the form -->
           <div class="modal-button-container">
-            <button
-              type="submit"
-              id="submit-button"
-              class="btn-update"
-              onclick="updateTask()"
-            >
-              Save
-            </button>
-            <button
-              type="button"
-              class="btn-delete"
-              id="delete-button"
-              onclick="deleteTask()"
-            >
-              Delete
-            </button>
+            <button type="submit" id="submit-button" class="btn-update" onclick="updateTask()">Save</button>
+            <button type="button" class="btn-delete" id="delete-button" onclick="deleteTask()">Delete</button>
             <button type="reset" class="btn-reset">Reset</button>
           </div>
         </form>
       </div>
     </div>
 
+    <!-- Footer section -->
     <footer>
       <p>&copy; All rights reserved.</p>
     </footer>
+    <!-- Scripts for cookies and task management -->
     <script src="../scripts//cookie.js"></script>
     <script src="../scripts/management.js"></script>
   </body>
