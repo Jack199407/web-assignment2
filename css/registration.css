@@ -1,8 +1,8 @@
 /* CSS Comments
     Name: Yixuan Chen 041109700
-    File Name: registeration.css
+    File Name: registration.css
     Date Created: 2024-11-21
-    Description: This is a css style for registeration.html.
+    Description: This is a css style for registration.html.
 */
 
 /* Importing Google Fonts for typography */
@@ -100,6 +100,20 @@ form button[type="submit"]:hover {
   background-color: #6f634a;
 }
 
+/* Error Style */
+.error {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: none;
+}
+.active {
+  display: block;
+}
+.error-field {
+  border-color: red;
+}
+
 /* Responsive Design */
 @media screen and (min-width: 601px) and (max-width: 1024px) {
   .form-container {
@@ -124,15 +138,4 @@ form button[type="submit"]:hover {
   }
 }
 
-.error {
-  color: red;
-  font-size: 0.9em;
-  margin-top: 4px;
-  display: none;
-}
-.active {
-  display: block;
-}
-.error-field {
-  border-color: red;
-}
+
